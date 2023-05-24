@@ -28,6 +28,24 @@ Ten en cuenta que la ejecución de terraform apply creará y modificará recurso
 * Una vez que Terraform haya completado la aplicación de la configuración, podrás ver los recursos creados en tu cuenta de AWS según lo definido en el archivo main.tf.
 
 ## Implementación de pruebas de la infraestructura
+
+Aquí se estructura la prueba de la ejecución del archivo de la infraestructura, y los pasos a ejecutar son:
+
+Para ejecutar un archivo de prueba en Terratest llamado main_test.go, sigue estos pasos:
+
+* Asegúrate de tener Terratest y todas las dependencias necesarias instaladas en tu entorno de desarrollo.
+
+* Abre una terminal y navega hasta el directorio que contiene el archivo main_test.go.
+
+* Ejecuta el siguiente comando para ejecutar las pruebas:
+
+```bash
+    go test -v -timeout 30m
+```
+
+El indicador -v muestra el detalle de la salida de las pruebas, y el indicador -timeout establece el tiempo límite para la ejecución de las pruebas.
+
+Terratest buscará automáticamente los archivos de prueba que sigan el patrón *_test.go y los ejecutará.
 ## Autor
 
 - [Freddy Mauricio Tacuri Pajuña](https://github.com/fmtacuri)
