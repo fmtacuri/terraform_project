@@ -24,31 +24,33 @@ resource "aws_vpc" "my_vpc" {
 }
 
 # Creación de subredes públicas
+# Cambia esto según tu zona de disponibilidad preferida
 resource "aws_subnet" "public_subnet_1" {
   vpc_id                  = aws_vpc.my_vpc.id
   cidr_block              = "10.0.1.0/24"
-  availability_zone       = "us-west-2a"  # Cambia esto según tu zona de disponibilidad preferida
+  availability_zone       = "us-west-2a"  
   map_public_ip_on_launch = true
 }
 
 resource "aws_subnet" "public_subnet_2" {
   vpc_id                  = aws_vpc.my_vpc.id
   cidr_block              = "10.0.2.0/24"
-  availability_zone       = "us-west-2b"  # Cambia esto según tu zona de disponibilidad preferida
+  availability_zone       = "us-west-2b"
   map_public_ip_on_launch = true
 }
 
 # Creación de subredes privadas
+# Cambia esto según tu zona de disponibilidad preferida
 resource "aws_subnet" "private_subnet_1" {
   vpc_id                  = aws_vpc.my_vpc.id
   cidr_block              = "10.0.3.0/24"
-  availability_zone       = "us-west-2a"  # Cambia esto según tu zona de disponibilidad preferida
+  availability_zone       = "us-west-2a" 
 }
 
 resource "aws_subnet" "private_subnet_2" {
   vpc_id                  = aws_vpc.my_vpc.id
   cidr_block              = "10.0.4.0/24"
-  availability_zone       = "us-west-2b"  # Cambia esto según tu zona de disponibilidad preferida
+  availability_zone       = "us-west-2b" 
 }
 
 # Creación de una tabla de enrutamiento para las subredes públicas
@@ -79,14 +81,14 @@ resource "aws_internet_gateway" "my_internet_gateway" {
 
 # Creación de una instancia de base de datos RDS (PostgreSQL)
 resource "aws_db_instance" "postgres_db" {
-  identifier             = "my-postgres-db"
+  identifier             = "ups-postgres-db"
   allocated_storage      = 20
   storage_type           = "gp2"
   engine                 = "postgres"
   engine_version         = "12.6"
   instance_class         = "db.t2.micro"
-  username               = "admin"
-  password               = "mysecretpassword"
+  username               = "ups_admin"
+  password               = "UpsTesis2023*"
   publicly_accessible   = false
   skip_final_snapshot    = true
   vpc_security_group_ids = [aws_security_group.postgres_sg.id]
@@ -128,7 +130,7 @@ resource "aws_security_group" "kubernetes_sg" {
 
 # Creación de un clúster de Kubernetes (EKS)
 resource "aws_eks_cluster" "my_cluster" {
-  name       = "my-eks-cluster"
+  name       = "my-ups-cluster"
   role_arn   = aws_iam_role.cluster_role.arn
   version    = "1.21"
   vpc_config {
